@@ -25,12 +25,12 @@ arXiv:1506.02640
 
 1. 이미지를 S x S 그리드로 나눔. 이때 물체의 중심이 포함된 그리드가 물체를 인식하는 역할을 수행함.
 2. 각 그리드 셀에서 B개의 Bounding Box와 box별 Confidence Score를 예측함.
-   $ Confidence Score = Pr(Object) \* IOU $
+   $ Confidence Score = Pr(Object) * IOU $
    IOU = Intersection Over Union
    Confidence Score는 모델이 박스 내에 물체가 존재한다는 신뢰도와 박스의 정확도를 포함하는 값이 된다.
-3. 각 셀은 셀이 포함한 물체의 분류 클래스별 확률 $ Pr(Class_i | Object) $ 을 계산함.
+3. 각 셀은 셀이 포함한 물체의 분류 클래스별 확률 $ Pr(Class_i | Object) $을 계산함.
 4. 위 두 값을 활용해 Test-Time에 각 클래스별 Confidence Score를 다음과 같이 계산할 수 있음.
-   $ Pr(Class*i | Object) * Pr(Object) \_ IOU = Pr(Class_i) \* IOU$
+   $ Pr(Class_i | Object) * Pr(Object) * IOU = Pr(Class_i) * IOU$
    이 값은 Bounding Box의 정확도와 물체가 Box 안에서 나타나는 확률을 모두 포함하는 값이 된다.
 
 각각의 Bounding Box는 박스의 가운데 좌표 (x,y), 박스의 폭과 너비 (w,h), Confidence Score 의 다섯 개의 값을 예측하고 각 그리드는 클래스별 확률을 예측하기 때문에, 클래스의 개수가 C개라고 한다면 이미지에 대한 모델의 예측 결과는 S x S x (B\*5 +C) 크기의 Tensor로 인코딩된다.
