@@ -62,3 +62,10 @@ $\lambda_{noobj}=0.5$)
 - 현재 모델은 각 그리드 셀에 다수의 Bounding Box를 예측하지만, Training에는 하나의 Bounding Box 만 사용하기 위해 가장 큰 IOU값을 가지는 박스만 사용한다.
 오차 함수에서 $\mathbb{1}{ij}^{obj}$는 i번째 셀의 j번쨰 박스가 탐지에 사용될 때를 의미한다.
 마찬가지로 $\mathbb{1}_{i}^{obj}$ 는 물체가 i번째 셀 내에 존재할 때를 의미한다.
+
+
+## Implementation
+
+아직 Tensorflow 의 MPS 가 불안정하여 Gradient 연산 도중 에러가 발생하여 윈도우 환경에서 실행하였다.
+![error](./images/error.png)
+
