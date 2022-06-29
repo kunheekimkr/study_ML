@@ -25,16 +25,16 @@ arXiv:1506.02640
 
 1. 이미지를 S x S 그리드로 나눔. 이때 물체의 중심이 포함된 그리드가 물체를 인식하는 역할을 수행함.
 2. 각 그리드 셀에서 B개의 Bounding Box와 box별 Confidence Score를 예측함.
-3. 
-   $ Confidence Score = Pr(Object) * IOU $
-   
+3. $ Confidence Score = Pr(Object) \* IOU $
+
    IOU = Intersection Over Union
-   
+
    Confidence Score는 모델이 박스 내에 물체가 존재한다는 신뢰도와 박스의 정확도를 포함하는 값이 된다.
-3. 각 셀은 셀이 포함한 물체의 분류 클래스별 확률 $ Pr(Class_i | Object) $을 계산함.
-4. 위 두 값을 활용해 Test-Time에 각 클래스별 Confidence Score를 다음과 같이 계산할 수 있음.
-   $ Pr(Class_i | Object) * Pr(Object) * IOU = Pr(Class_i) * IOU$
-   
+
+4. 각 셀은 셀이 포함한 물체의 분류 클래스별 확률 $ Pr(Class_i | Object) $을 계산함.
+5. 위 두 값을 활용해 Test-Time에 각 클래스별 Confidence Score를 다음과 같이 계산할 수 있음.
+   $ Pr(Class*i | Object) * Pr(Object) \_ IOU = Pr(Class_i) \* IOU$
+
    이 값은 Bounding Box의 정확도와 물체가 Box 안에서 나타나는 확률을 모두 포함하는 값이 된다.
 
 각각의 Bounding Box는 박스의 가운데 좌표 (x,y), 박스의 폭과 너비 (w,h), Confidence Score 의 다섯 개의 값을 예측하고 각 그리드는 클래스별 확률을 예측하기 때문에, 클래스의 개수가 C개라고 한다면 이미지에 대한 모델의 예측 결과는 S x S x (B\*5 +C) 크기의 Tensor로 인코딩된다.
@@ -55,17 +55,35 @@ Loss Function은 다음과 같이 구성됨.
 ![loss](./images/loss.png)
 
 - 대다수의 Bounding Box는 물체를 포함하지 않아 confidence score는 0 인 상자가 많으므로, 좌표에 대한 오차와 신뢰도에 대한 오차의 비율을 조정하기 위해 $\lambda_{coord}$ 와
-$\lambda_{noobj}$  변수를 활용. 
-(논문의 예시에서 $\lambda_{coord}= 5$,
-$\lambda_{noobj}=0.5$)
+  $\lambda_{noobj}$ 변수를 활용.
+  (논문의 예시에서 $\lambda_{coord}= 5$,
+  $\lambda_{noobj}=0.5$)
 - 큰 박스와 작은 박스의 오차를 동일한 수준으로 조정하기 위해 폭과 높이의 제곱근을 이용해 오차 계산
 - 현재 모델은 각 그리드 셀에 다수의 Bounding Box를 예측하지만, Training에는 하나의 Bounding Box 만 사용하기 위해 가장 큰 IOU값을 가지는 박스만 사용한다.
-오차 함수에서 $\mathbb{1}{ij}^{obj}$는 i번째 셀의 j번쨰 박스가 탐지에 사용될 때를 의미한다.
-마찬가지로 $\mathbb{1}_{i}^{obj}$ 는 물체가 i번째 셀 내에 존재할 때를 의미한다.
-
+  오차 함수에서 $\mathbb{1}{ij}^{obj}$는 i번째 셀의 j번쨰 박스가 탐지에 사용될 때를 의미한다.
+  마찬가지로 $\mathbb{1}_{i}^{obj}$ 는 물체가 i번째 셀 내에 존재할 때를 의미한다.
 
 ## Implementation
 
-아직 Tensorflow 의 MPS 가 불안정하여 Gradient 연산 도중 에러가 발생하여 윈도우 환경에서 실행하였다.
+아직 Tensorflow 의 MPS 가 불안정하여 Gradient 연산 도중 에러가 발생하여 윈도우 환경에서 실행하였다. :(
 ![error](./images/error.png)
 
+Environment: Tensorflow / RTX 3060 Laptop GPU
+Training Time: 1hr 30min (20 Epochs 에서 Training 중단)
+
+**Training & Validation Loss**
+
+![loss](./images/training.png)
+
+**Example Images (1200 steps)**
+
+TensorBoard를 활용해 Validation Images에서 예측 결과 추출
+
+![Example1](<./images/imageData%20(1).png>)
+![Example2](<./images/imageData%20(2).png>)
+![Example1](<./images/imageData%20(3).png>)
+![Example1](<./images/imageData%20(4).png>)
+
+시간과 그래픽 자원 한계로 훈련이 부족하게 이루어졌고 개선이 필요함을 확인할 수 있다.
+
+[Evaluation Test Result (30 pics)](https://github.com/kunheekimkr/study_ML/tree/main/YOLO/test_result)
