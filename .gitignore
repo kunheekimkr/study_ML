@@ -5,3 +5,4 @@
 */__pycache__
 */~/tensorflow_datasets/*
 */saved_model/*
+*/data/
