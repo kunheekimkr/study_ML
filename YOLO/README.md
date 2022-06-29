@@ -5,14 +5,6 @@ arXiv:1506.02640
 ## References
 
 - [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
-
-## Characteristics
-
-- 단일 신경만 구조로 구성이 단순하고 빠름
-- 이미지를 전체적으로 학습하기 때문에 배경을 물체로 인식하는 background-error가 적음
-- 일반화 성능이 뛰어나 artwork등 특수한 이미지에 대해서도 인식률이 뛰어남
-- SOTA 모델에 비해 정확도가 떨어지나 Real-Time 급 속도에서 장점을 가짐
-
 ## Approach
 
 기존의 Detection Model은 사진의 다양한 위치를 다양한 크기로 잘라 Image Classificatior를 적용시켜 Object Detection의 목적을 달성했지만, YOLO의 경우 이미지 픽셀로부터 Bounding Box Coordinate(물체의 위치)와 Class Probability(물체의 종류)를 계산하는 하나의 회귀 문제로 재구성하는 새로운 접근.
@@ -20,6 +12,13 @@ arXiv:1506.02640
 1. 이미지를 448 x 448로 크기 변환
 2. CNN 모델을 통해 물체의 위치와 종류 예측
 3. Non-max Suppression을 통해 가장 확률이 높은 예측값 선택
+
+## Characteristics
+
+- 단일 신경만 구조로 구성이 단순하고 빠름
+- 이미지를 전체적으로 학습하기 때문에 배경을 물체로 인식하는 background-error가 적음
+- 일반화 성능이 뛰어나 artwork등 특수한 이미지에 대해서도 인식률이 뛰어남
+- SOTA 모델에 비해 정확도가 떨어지나 Real-Time 급 속도에서 장점을 가짐
 
 ## Model
 
