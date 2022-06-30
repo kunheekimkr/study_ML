@@ -49,9 +49,7 @@ Training Time: 18min 50s (50 Epochs, k=10, batch size=64)
 
 **Training Result**
 
-TensorBoard를 활용해 Validation Images에서 예측 결과 추출
-
-![Example1](/images/result.gif)
+![Example1](./images/result.gif)
 
 [Generated Image Per Epoch](https://github.com/kunheekimkr/study_ML/tree/main/VanillaGAN/result)
 
