@@ -47,10 +47,13 @@ arXiv:1406.2661
 Environment: Pytorch / Apple M1 Pro (10 Core CPU, 16 Core GPU, 16GB RAM)
 Training Time: 18min 50s (50 Epochs, k=10, batch size=64)
 
+**Training Loss**
+
+TensorBoard를 활용해 Generator 와 Discriminator의 Training Loss 시각화
+![loss](./images/loss.png)
+
 **Training Result**
 
 ![Example1](./images/result.gif)
 
 [Generated Image Per Epoch](https://github.com/kunheekimkr/study_ML/tree/main/VanillaGAN/result)
-
-To-do: 훈련 한번 더 진행시키면서 Loss Graph 그리기

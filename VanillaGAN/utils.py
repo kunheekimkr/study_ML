@@ -18,4 +18,4 @@ def saveresults(epochs):
         img.save(path+str(epoch)+".png")
         images.append(img)
 
-    io.mimsave('./result/result.gif', images, duration =0.5)
+    io.mimsave('./result/result.gif', images, duration =0.3)

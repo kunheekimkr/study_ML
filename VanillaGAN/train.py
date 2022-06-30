@@ -10,6 +10,9 @@ from utils import saveresults
 import numpy as np
 from matplotlib.pyplot import imsave
 
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+
 dataset = Dataset()
 data_loader = DataLoader(dataset)
 
@@ -50,6 +53,7 @@ for epoch in range(epochs):
         D_loss.backward()
         D_optim.step()
 
+
         if step % k == 0 :
             # Train Generator
             z = torch.randn(batch_size, 100).to(device)
@@ -59,7 +63,12 @@ for epoch in range(epochs):
             G.zero_grad()
             G_loss.backward()
             G_optim.step()
-        if step % 500 == 0:
+
+        if step % 100 == 0: # Draw Loss Function in Tensorboard
+            writer.add_scalar('D_loss', D_loss.item(), step)
+            writer.add_scalar('G_loss', G_loss.item(), step)
+
+        if step % 500 == 0: # Output Training Progress
             print('Epoch: {}/{}, Step: {}, D Loss: {}, G Loss: {}'.format(epoch, epochs, step, D_loss.item(), G_loss.item()))  
 
         step += 1
