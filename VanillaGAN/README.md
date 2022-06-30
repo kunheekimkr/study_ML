@@ -45,7 +45,8 @@ arXiv:1406.2661
 ## Implementation
 
 Environment: Pytorch / Apple M1 Pro (10 Core CPU, 16 Core GPU, 16GB RAM)
-Training Time: 18min 50s (50 Epochs, k=10, batch size=64)
+
+Training Time: 18m 50s (50 Epochs, k=10, batch size=64)
 
 **Training Loss**
 
