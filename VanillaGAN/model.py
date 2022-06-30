@@ -1,6 +1,3 @@
-from audioop import lin2adpcm
-from statistics import LinearRegression
-from torch import dropout
 import torch.nn as nn
 
 class Generator(nn.Module):
@@ -26,7 +23,7 @@ class Generator(nn.Module):
 
 class Discriminator(nn.Module):
     def __init__(self):
-        super().init()
+        super().__init__()
         self.model = nn.Sequential(
             nn.Linear(784,512),
             nn.LeakyReLU(),

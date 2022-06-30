@@ -41,3 +41,18 @@ arXiv:1406.2661
 2. 이 상황에서 D만 학습시키면 (b)에서 보듯이 D는 가짜 데이터와 진짜 데이터를 구분할 수 있게 된다.
 3. 이번에는 D의 학습을 중지시키고 이를 이용해 G를 학습시키면 (c)와 같이 G가 생성하는 가짜 데이터는 점점 진짜 데이터와 유사해진다.
 4. 위 두 과정을 계속 반복하게 되면 G가 생성하는 데이터의 분포는 진짜 데이터에 수렴하게 되고 D는 진짜 데이터와 가짜 데이터를 구분할 수 없는 상태가 되어 구분 성공률이 1/2의 일정한 값에 수렴하게 된다.
+
+## Implementation
+
+Environment: Pytorch / Apple M1 Pro (10 Core CPU, 16 Core GPU, 16GB RAM)
+Training Time: 18min 50s (50 Epochs, k=10, batch size=64)
+
+**Training Result**
+
+TensorBoard를 활용해 Validation Images에서 예측 결과 추출
+
+![Example1](/images/result.gif)
+
+[Generated Image Per Epoch](https://github.com/kunheekimkr/study_ML/tree/main/VanillaGAN/result)
+
+To-do: 훈련 한번 더 진행시키면서 Loss Graph 그리기
